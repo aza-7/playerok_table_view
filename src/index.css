@@ -278,6 +278,24 @@ tr:last-child td {
   color: #9ea7b3;
 }
 
+.settings-links {
+  gap: 8px;
+  font-size: 13px;
+}
+
+.settings-links a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.settings-links a:hover {
+  text-decoration: underline;
+}
+
+.settings-links-sep {
+  color: #9ea7b3;
+}
+
 .settings-panel label {
   display: flex;
   flex-direction: column;

@@ -224,6 +224,24 @@ function App({ initialTab = "sales", onClose }) {
               Быстрое удаление (без подтверждения)
             </label>
           </div>
+
+          <div className="settings-row settings-links">
+            <a
+              href="https://github.com/aza-7/playerok_table_view"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub проекта
+            </a>
+            <span className="settings-links-sep">·</span>
+            <a
+              href="https://playerok.com/profile/HelloKitty11/products"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Профиль автора на playerok
+            </a>
+          </div>
         </div>
       )}
 
