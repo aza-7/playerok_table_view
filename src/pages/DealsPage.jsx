@@ -38,14 +38,12 @@ function DealsPage({ onAuthNeeded }) {
 
   // Доход = цена − комиссия товара. feeMultiplier — доля комиссии из полного
   // запроса deal (0.1 = 10%, у части товаров выше), подтягивается кнопкой
-  // «Получить время заказов»; пока комиссии нет — усреднённые 10%.
-  const DEFAULT_FEE = 0.1;
-
+  // «Получить дату и доход». Пока комиссии нет — null, колонка пустая
+  // (никаких усреднённых прикидок).
   const calculateProfit = (price, feeMultiplier) => {
     const fee = Number(feeMultiplier);
-    const effectiveFee =
-      Number.isFinite(fee) && fee > 0 && fee < 1 ? fee : DEFAULT_FEE;
-    return Math.floor(price - price * effectiveFee);
+    if (!Number.isFinite(fee) || fee <= 0 || fee >= 1) return null;
+    return Math.floor(price - price * fee);
   };
 
   // загрузка заказов: playerok.com → IndexedDB → таблица
@@ -171,7 +169,7 @@ function DealsPage({ onAuthNeeded }) {
         sanitize(user.username),
         sanitize(deal.node.status),
         sanitize(price),
-        sanitize(calculateProfit(price, item.feeMultiplier))
+        sanitize(calculateProfit(price, item.feeMultiplier) ?? "")
       ]);
     });
 
@@ -320,9 +318,9 @@ function DealsPage({ onAuthNeeded }) {
           >
             {timeLoading
               ? timeProgress
-                ? `Даты: ${timeProgress.done}/${timeProgress.total}`
+                ? `Загрузка: ${timeProgress.done}/${timeProgress.total}`
                 : "Загрузка..."
-              : "Получить дату продаж"}
+              : "Получить дату и доход"}
           </button>
           <button
             className="fetch-btn"
@@ -353,6 +351,10 @@ function DealsPage({ onAuthNeeded }) {
             {filteredDeals.map((deal) => {
               const item = deal.node.item;
               const user = deal.node.user;
+              const profit = calculateProfit(
+                item?.price || 0,
+                item?.feeMultiplier
+              );
 
               return (
                 <tr key={deal.node.id}>
@@ -431,7 +433,7 @@ function DealsPage({ onAuthNeeded }) {
                       rel="noreferrer"
                       className="deal-link"
                     >
-                      {calculateProfit(item?.price || 0, item?.feeMultiplier)} ₽
+                      {profit != null ? `${profit} ₽` : ""}
                     </a>
                   </td>
                 </tr>
