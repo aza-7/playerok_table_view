@@ -467,9 +467,15 @@ export async function fetchDealTimes(ids, dealHash, onResult) {
       batch.map(async (id) => {
         try {
           const deal = await fetchDeal(id, dealHash, { queued: false });
-          return { id, createdAt: deal?.createdAt ?? null, error: null };
+          return {
+            id,
+            createdAt: deal?.createdAt ?? null,
+            // комиссия товара — для точного расчёта дохода по каждой сделке
+            feeMultiplier: deal?.item?.feeMultiplier ?? null,
+            error: null,
+          };
         } catch (error) {
-          return { id, createdAt: null, error };
+          return { id, createdAt: null, feeMultiplier: null, error };
         }
       })
     );

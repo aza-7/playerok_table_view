@@ -1,7 +1,9 @@
 import { getDb, parsePriceToInt } from './db.js';
 
 // Mirrors the old SQLite `deals` table:
-// { id, status, created_at, username, item_name, price, updated_at }
+// { id, status, created_at, username, item_name, price, updated_at,
+//   fee_multiplier } — fee_multiplier: комиссия товара из полного запроса
+// deal; -1 = запрос был, но комиссии в ответе нет (товар удалён и т.п.)
 const STORE = 'deals';
 
 export { parsePriceToInt };
@@ -75,25 +77,36 @@ export async function getAllDeals() {
       status: d.status,
       createdAt: d.created_at,
       user: { username: d.username },
-      item: { name: d.item_name, price: d.price },
+      item: {
+        name: d.item_name,
+        price: d.price,
+        feeMultiplier: d.fee_multiplier ?? null,
+      },
     },
   }));
 }
 
-export async function getIdsMissingCreatedAt() {
+// Заказы, которым нужен полный запрос deal: нет даты или комиссии
+// (fee_multiplier == null — в т.ч. заказы, скачанные до этой фичи)
+export async function getIdsMissingDealMeta() {
   const db = await getDb();
   const records = await db.getAll(STORE);
-  return records.filter((d) => !d.created_at).map((d) => d.id);
+  return records
+    .filter((d) => !d.created_at || d.fee_multiplier == null)
+    .map((d) => d.id);
 }
 
-export async function setCreatedAt(id, createdAt) {
-  if (!createdAt) return;
+// Данные из полного запроса deal: дата и комиссия товара.
+// feeMultiplier null → пишем -1 (запрос был, комиссии нет) — чтобы заказ
+// не перезапрашивался бесконечно.
+export async function setDealMeta(id, { createdAt, feeMultiplier }) {
   const db = await getDb();
   const existing = await db.get(STORE, id);
   if (!existing) return;
   await db.put(STORE, {
     ...existing,
-    created_at: createdAt,
+    created_at: createdAt || existing.created_at,
+    fee_multiplier: feeMultiplier ?? -1,
     updated_at: new Date().toISOString(),
   });
 }

@@ -4,8 +4,8 @@ import { fetchDealsList, fetchDealTimes, AuthError } from "../api/playerok.js";
 import {
   upsertDeals,
   getAllDeals,
-  getIdsMissingCreatedAt,
-  setCreatedAt,
+  getIdsMissingDealMeta,
+  setDealMeta,
 } from "../db/dealsStore.js";
 import { formatDate } from "../utils/format.js";
 
@@ -36,10 +36,16 @@ function DealsPage({ onAuthNeeded }) {
     );
   };
 
-  const calculateProfit = (price) => {
-    const afterTenPercent = price * 0.9;
-    const afterSixPercent = afterTenPercent * 0.94;
-    return Math.floor(afterSixPercent);
+  // Доход = цена − комиссия товара. feeMultiplier — доля комиссии из полного
+  // запроса deal (0.1 = 10%, у части товаров выше), подтягивается кнопкой
+  // «Получить время заказов»; пока комиссии нет — усреднённые 10%.
+  const DEFAULT_FEE = 0.1;
+
+  const calculateProfit = (price, feeMultiplier) => {
+    const fee = Number(feeMultiplier);
+    const effectiveFee =
+      Number.isFinite(fee) && fee > 0 && fee < 1 ? fee : DEFAULT_FEE;
+    return Math.floor(price - price * effectiveFee);
   };
 
   // загрузка заказов: playerok.com → IndexedDB → таблица
@@ -97,7 +103,7 @@ function DealsPage({ onAuthNeeded }) {
         );
         return;
       }
-      const ids = await getIdsMissingCreatedAt();
+      const ids = await getIdsMissingDealMeta();
 
       if (ids.length === 0) {
         setDeals(await getAllDeals());
@@ -107,12 +113,12 @@ function DealsPage({ onAuthNeeded }) {
       let done = 0;
       setTimeProgress({ done: 0, total: ids.length });
 
-      await fetchDealTimes(ids, cfg.dealHash, async ({ id, createdAt, error }) => {
+      await fetchDealTimes(ids, cfg.dealHash, async ({ id, createdAt, feeMultiplier, error }) => {
         if (error instanceof AuthError) throw error;
         if (error) {
           console.error(`deal ${id}:`, error); // пропускаем, дата останется пустой
         } else {
-          await setCreatedAt(id, createdAt);
+          await setDealMeta(id, { createdAt, feeMultiplier });
         }
         done += 1;
         setTimeProgress({ done, total: ids.length });
@@ -165,7 +171,7 @@ function DealsPage({ onAuthNeeded }) {
         sanitize(user.username),
         sanitize(deal.node.status),
         sanitize(price),
-        sanitize(calculateProfit(price))
+        sanitize(calculateProfit(price, item.feeMultiplier))
       ]);
     });
 
@@ -425,7 +431,7 @@ function DealsPage({ onAuthNeeded }) {
                       rel="noreferrer"
                       className="deal-link"
                     >
-                      {calculateProfit(item?.price || 0)} ₽
+                      {calculateProfit(item?.price || 0, item?.feeMultiplier)} ₽
                     </a>
                   </td>
                 </tr>
