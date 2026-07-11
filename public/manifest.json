@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Playerok Table View",
-  "version": "1.0.0",
-  "description": "Таблицы продаж и товаров playerok прямо в профиле, с историей и экспортом CSV",
+  "version": "1.0.1",
+  "description": "Таблицы продаж и товаров playerok прямо в профиле: история заказов, цены, дублирование, автопубликация и экспорт в CSV.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
