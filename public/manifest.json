@@ -33,8 +33,11 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "playerok-orders@local",
-      "strict_min_version": "115.0"
+      "id": "playerok-table-view@aza-7",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
   "minimum_chrome_version": "121"

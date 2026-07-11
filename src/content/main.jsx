@@ -63,14 +63,20 @@ function closeOverlay() {
 // React перерисовывает ряд вкладок при навигации и может пропатчить классы
 // наших кнопок как своих (например, навесить active — кнопки синеют).
 // Храним исходный вид и откатываем любые чужие правки.
-const pristineButtons = new WeakMap(); // el → { className, innerHTML }
+const pristineButtons = new WeakMap(); // el → { className, html, content }
 
 function normalizeButtons(row) {
   for (const el of row.querySelectorAll(`[${BTN_FLAG}]`)) {
     const orig = pristineButtons.get(el);
     if (!orig) continue;
     if (el.className !== orig.className) el.className = orig.className;
-    if (el.innerHTML !== orig.innerHTML) el.innerHTML = orig.innerHTML;
+    if (el.innerHTML !== orig.html) {
+      // восстановление клонами узлов, не innerHTML — строки не парсятся
+      // (заодно снимает предупреждение AMO про unsafe innerHTML)
+      el.replaceChildren(
+        ...[...orig.content.childNodes].map((node) => node.cloneNode(true))
+      );
+    }
   }
 }
 
@@ -131,10 +137,12 @@ function injectButtons() {
       openOverlay(tab);
     });
 
-    // эталон для normalizeButtons — откат правок React
+    // эталон для normalizeButtons — откат правок React: html для сравнения,
+    // content (глубокий клон) для восстановления без innerHTML
     pristineButtons.set(el, {
       className: el.className,
-      innerHTML: el.innerHTML,
+      html: el.innerHTML,
+      content: el.cloneNode(true),
     });
     return el;
   };
