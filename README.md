@@ -41,6 +41,25 @@ src/
 dist/            результат сборки
 ```
 
+## Сборка из исходников
+
+Требования: [Node.js](https://nodejs.org) 20+ (сборка проверена на Node 25 /
+npm 11), любая ОС.
+
+```bash
+npm install
+npm run build
+```
+
+Готовое расширение появляется в папке `dist/` (собирается Vite: исходники из
+`src/` бандлятся в `dist/content.js`, файлы из `public/` — manifest,
+background.js, иконки — копируются как есть). Для проверки в браузере:
+
+- **Firefox** — `about:debugging#/runtime/this-firefox` →
+  *Load Temporary Add-on* → `dist/manifest.json`;
+- **Chrome** — `chrome://extensions` → режим разработчика →
+  *Загрузить распакованное* → папка `dist`.
+
 ## Лицензия
 
 [MIT](LICENSE)
