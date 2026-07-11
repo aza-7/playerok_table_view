@@ -1,5 +1,74 @@
 # Playerok Table View
 
+**English** | [Русский](#playerok-table-view--русский)
+
+A browser extension (Firefox) that adds sales and item tables right into
+your profile on [playerok.com](https://playerok.com) — with local history,
+bulk actions and CSV export.
+
+> Unofficial tool, not affiliated with playerok.com. The extension talks to
+> the site's GraphQL API under your own browser session — no data is sent
+> anywhere and everything is stored only on your machine.
+
+## Features
+
+- **Sales table** — full order history: dates, buyers, statuses, "Price"
+  and "Income" columns, date/status filters, CSV export.
+- **Items table** — active and completed items: views, sales count,
+  prices; change a price right from the table.
+- **Duplicate** an item into a draft (with photo re-upload or without),
+  with a prompt for the copy's new price.
+- **Publish** drafts, delisted and sold items in one click (free priority).
+- **Auto-republish** — flag items with "Авто" and they get re-listed
+  automatically as soon as they leave the active state. Works in the
+  background on any open playerok tab — no need to open the overlay.
+- **No manual setup** — your user id and API request hashes are detected
+  automatically while you simply browse the site.
+- Everything is local: data is cached in your browser's IndexedDB.
+
+## Project structure
+
+```
+public/          static extension files (manifest.json, background.js, icons)
+src/
+  api/           playerok GraphQL client, queries and mutations
+  content/       content-script entry point + overlay styles (Shadow DOM)
+  db/            IndexedDB stores (sales, items)
+  pages/         React pages: sales table, items table
+  utils/         parameter auto-detection, formatting
+  autoPublish.js background auto-republish daemon
+dist/            build output
+```
+
+## Building from source
+
+Requirements: [Node.js](https://nodejs.org) 20+ (build verified on Node 25 /
+npm 11), any OS.
+
+```bash
+npm install
+npm run build
+```
+
+The ready extension appears in the `dist/` folder (built by Vite: sources
+from `src/` are bundled into `dist/content.js`, files from `public/` —
+manifest, background.js, icons — are copied as is). To try it in a browser:
+
+- **Firefox** — `about:debugging#/runtime/this-firefox` →
+  *Load Temporary Add-on* → `dist/manifest.json`;
+- **Chrome** — `chrome://extensions` → enable developer mode →
+  *Load unpacked* → the `dist` folder.
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+# Playerok Table View — Русский
+
+[English](#playerok-table-view) | **Русский**
+
 Браузерное расширение (Firefox), которое добавляет
 таблицы продаж и товаров прямо в профиль на
 [playerok.com](https://playerok.com) — с локальной историей, массовыми
