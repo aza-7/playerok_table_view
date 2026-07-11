@@ -1,0 +1,484 @@
+/* index.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #111318;
+  color: white;
+}
+
+.app {
+  padding: 30px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+}
+
+.limit-input {
+  width: 180px;
+  height: 42px;
+  background: #1a1d24;
+  border: 1px solid #2d313b;
+  border-radius: 8px;
+  color: white;
+  padding: 0 14px;
+  outline: none;
+}
+
+.fetch-btn {
+  height: 42px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #5865f2;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #2a2d35;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #181b22;
+}
+
+thead {
+  background: #20242d;
+}
+
+th {
+  text-align: left;
+  padding: 16px;
+  font-size: 14px;
+  color: #9ea7b3;
+  border-bottom: 1px solid #2a2d35;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #2a2d35;
+  font-size: 14px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.profit {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 95px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.paid {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+}
+
+.confirmed {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60a5fa;
+}
+
+.rolled-back {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f87171;
+}
+
+.sent {
+  background: rgba(104, 96, 250, 0.12);
+  color: #8160fa;
+}
+
+.deal-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.deal-link:hover {
+  text-decoration: underline;
+}
+
+.status-dropdown {
+  position: relative;
+}
+
+.status-dropdown-btn {
+  height: 42px;
+  min-width: 180px;
+  padding: 0 14px;
+  background: #1a1d24;
+  border: 1px solid #2d313b;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 14px;
+}
+
+.status-dropdown-btn:hover {
+  border-color: #5865f2;
+}
+
+.arrow {
+  transition: transform 0.2s ease;
+  font-size: 12px;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+.status-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+
+  width: 220px;
+
+  background: #1a1d24;
+  border: 1px solid #2d313b;
+  border-radius: 10px;
+
+  padding: 10px;
+  z-index: 1000;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.status-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition: background 0.15s ease;
+}
+
+.status-option:hover {
+  background: #252a34;
+}
+
+.status-option input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.status-option span {
+  color: white;
+  font-size: 14px;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.banner a {
+  color: #60a5fa;
+}
+
+.banner-auth {
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #f87171;
+}
+
+.banner-permission {
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  color: #60a5fa;
+}
+
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid #2d313b;
+  border-radius: 10px;
+  background: #1a1d24;
+  margin-bottom: 20px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.settings-detect-status {
+  font-size: 13px;
+  color: #9ea7b3;
+}
+
+.settings-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #9ea7b3;
+}
+
+.settings-panel .limit-input {
+  width: 320px;
+  font-size: 13px;
+}
+
+.settings-panel .checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  cursor: pointer;
+}
+
+.settings-panel .checkbox-label input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* svg-иконки в кнопках: центрируем и не даём сжиматься */
+.fetch-btn svg,
+.tab-icon svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.fetch-btn:has(svg),
+.tab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* колонка «Авто» (автопубликация) в таблице товаров */
+.auto-col {
+  text-align: center;
+}
+
+.auto-col input {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.auto-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  height: 42px;
+  padding: 0 20px;
+  border: 1px solid #2d313b;
+  border-radius: 8px;
+  background: #1a1d24;
+  color: #9ea7b3;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab:hover {
+  color: white;
+  border-color: #5865f2;
+}
+
+.tab-active {
+  background: #5865f2;
+  border-color: #5865f2;
+  color: white;
+}
+
+.section-title {
+  font-size: 18px;
+  margin: 25px 0 12px;
+  color: #9ea7b3;
+}
+
+.section-title:first-of-type {
+  margin-top: 0;
+}
+
+.status-group-label {
+  padding: 8px 10px 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9ea7b3;
+}
+
+.price-edit {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.price-edit .price-input {
+  width: 90px;
+  height: 34px;
+  padding: 0 10px;
+}
+
+.price-edit .save-btn {
+  height: 34px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.price-edit .save-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.action-btn {
+  height: 34px;
+  min-width: 34px;
+  padding: 0 8px;
+  font-size: 14px;
+  background: #2a2e37;
+}
+
+.action-btn:hover {
+  background: #343945;
+}
+
+.action-btn.action-danger {
+  background: rgba(248, 113, 113, 0.16);
+  color: #f87171;
+}
+
+.action-btn.action-danger:hover {
+  background: rgba(248, 113, 113, 0.28);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* статусы товаров */
+.item-approved {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+}
+
+.item-pending {
+  background: rgba(250, 204, 21, 0.12);
+  color: #facc15;
+}
+
+.item-sold {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60a5fa;
+}
+
+.item-declined {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f87171;
+}
+
+.item-expired {
+  background: rgba(158, 167, 179, 0.12);
+  color: #9ea7b3;
+}
+
+.item-draft {
+  background: rgba(129, 96, 250, 0.12);
+  color: #8160fa;
+}
+
+.raw-price {
+  text-decoration: line-through;
+  color: #9ea7b3;
+}

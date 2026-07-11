@@ -1,0 +1,18 @@
+# dependencies / build
+node_modules/
+dist/
+
+# local tooling & data not part of the extension
+back/
+*.bat
+*.db
+*.csv
+__pycache__/
+
+# env / IDE / OS
+.env*
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

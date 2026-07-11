@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a4dff"/>
+      <stop offset="1" stop-color="#6f0fe0"/>
+    </linearGradient>
+  </defs>
+  <!-- фон: фирменный фиолетовый playerok -->
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#bg)"/>
+  <!-- таблица -->
+  <rect x="24" y="28" width="80" height="18" rx="6" fill="#ffffff" opacity="0.95"/>
+  <rect x="24" y="56" width="50" height="14" rx="5" fill="#ffffff" opacity="0.55"/>
+  <rect x="82" y="56" width="22" height="14" rx="5" fill="#ffffff" opacity="0.55"/>
+  <rect x="24" y="80" width="50" height="14" rx="5" fill="#ffffff" opacity="0.55"/>
+  <rect x="82" y="80" width="22" height="14" rx="5" fill="#ffffff" opacity="0.55"/>
+  <!-- молния playerok в голубом бейдже (габариты 89–107 × 84–112 — центр 98,98) -->
+  <circle cx="98" cy="98" r="24" fill="#14161d"/>
+  <path d="M102 84 89 100h7l-2 12 13-16h-7l2-12z" fill="#47bfff"/>
+</svg>

@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Playerok Table View",
+  "version": "1.0.0",
+  "description": "Таблицы продаж и товаров playerok прямо в профиле, с историей и экспортом CSV",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Playerok Table View",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["https://playerok.com/*", "https://*.playerok.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://playerok.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "playerok-orders@local",
+      "strict_min_version": "115.0"
+    }
+  },
+  "minimum_chrome_version": "121"
+}

@@ -1,0 +1,25 @@
+/* Оверлей, в котором рендерится приложение поверх playerok.com (Shadow DOM) */
+.pk-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden; /* прокрутка у панели, а не у фона — скролл не закрывает оверлей */
+  padding: 32px 16px;
+}
+
+.pk-overlay-panel {
+  position: relative;
+  width: 100%;
+  max-width: 1720px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto; /* собственный скролл-бар панели */
+  background: #111318;
+  color: white;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  min-height: 180px;
+}
